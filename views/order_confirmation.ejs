@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <%- include("partials/nav.ejs") %>
+        <main>
+            <form style="height: calc(2rem + 20px);" id="filters-bar" action="/search_products" method="get">
+            </form>
+            <script>
+               const sort_by_select = document.getElementById("sort-by-select"); 
+               const hidden_sort_by = document.getElementById("sort-by"); 
+               const submit_search_button = document.getElementById("submit-search-query"); 
+
+               sort_by_select.onchange = function () {
+                   hidden_sort_by.value = sort_by_select.value; 
+                   submit_search_button.click(); 
+               }
+            </script>
+            <section class="product-details-section">
+                ORDER CONFIRMED 😀!!
+                <%= order_details %>
+            </section>
+        </main>
+    </body>
+</html>

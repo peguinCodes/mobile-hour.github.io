@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <%- include("partials/nav.ejs") %>
+        <main>
+            <form style="height: calc(2rem + 20px);" id="filters-bar" action="/search_products" method="get">
+            </form>
+            <section class="center-center-content col-1 row-2">
+                <h2><%= status %></h2>
+                <h2><%= message %></h2>
+                <h3>log in <a href="/staff_login">here</a></h3>
+            </section>
+        </main>
+    </body>
+</html>

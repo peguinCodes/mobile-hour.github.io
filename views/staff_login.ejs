@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<body>
+    <main>
+        <section class="staff-login form-wrapper">
+            <h1>STAFF LOGIN</h1>
+            <form class="staff-login-form" action="/staff_login" method="post">
+
+                <!-- password-form-section -->
+                <label for="username">Username:</label>
+                <input type="text" id="username" for="username" name="login_username" autocomplete="username">
+
+                <!-- password-form-section -->
+                <label for="password">Password</label>
+                <input type="password" id="password" for="password" name="login_password" autocomplete="current-password">
+
+                <!-- bottom-form-section -->
+                <input type="submit" value="submit">
+                <input type="reset" value="reset">
+
+            </form>
+        </section>
+    </main>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

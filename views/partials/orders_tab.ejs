@@ -1,0 +1,22 @@
+<section class="full-max-layout">
+    <section class="data-table cols-8 data-list">
+        <span class="data-list-heading">Order Number</span>
+        <span class="data-list-heading">Order Date</span>
+        <span class="data-list-heading">Order Delivery Date</span>
+        <span class="data-list-heading">Customer ID</span>
+        <span class="data-list-heading">Product ID</span>
+        <span class="data-list-heading">Quantity</span>
+        <span class="data-list-heading">Price Sold</span>
+        <span class="data-list-heading">Sale Total</span>
+        <% for (const order of tab_data.all_entries) { %>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.order_id %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.order_date %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.order_delivery_date %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.customer_id %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.product_id %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.quantity %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= order.price_sold %> </span>
+            <span <%= order.order_id === tab_data.edit_id ? 'class="edit-staff-row"' : '' %>><%= "$" + (order.price_sold * order.quantity) %> </span>
+        <% } %>
+    </section>
+</section>

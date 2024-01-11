@@ -1,0 +1,27 @@
+<section class="full-max-layout">
+    <section class="data-table cols-5 data-list">
+        <span class="data-list-heading">Change ID</span>
+        <span class="data-list-heading">Change Made By</span>
+        <span class="data-list-heading">Change Action</span>
+        <span class="data-list-heading">Item Changed</span>
+        <span class="data-list-heading">Date Changed</span>
+        <% for (const change of tab_data.all_entries) { %>
+
+            <% if (change.changelog_id === tab_data.edit_id) { %>
+                <span class="edit-staff-row"><%= change.changelog_id %></span>
+                <span class="edit-staff-row"><%= change.created_by_username %></span>
+                <span class="edit-staff-row"><%= change.change_action %></span>
+                <span class="edit-staff-row"><%= change.product_name || change.created_username %></span>
+                <span class="edit-staff-row"><%= (change.date_created || 'N/A') %></span>
+
+            <% } else { %>
+                <span><%= change.changelog_id %></span>
+                <span><%= change.created_by_username %></span>
+                <span><%= change.change_action %></span>
+                <span><%= change.product_name || change.created_username %></span>
+                <span><%= (change.date_created || 'N/A') %></span>
+            <% } %>
+
+        <% } %>
+    </section>
+</section>

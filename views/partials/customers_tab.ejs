@@ -1,0 +1,75 @@
+<section class="full-max-layout">
+    <section class="data-table cols-9 data-list">
+        <span class="data-list-heading">ID</span>
+        <span class="data-list-heading">Customer First Name</span>
+        <span class="data-list-heading">Customer Last Name</span>
+        <span class="data-list-heading">Customer Phone</span>
+        <span class="data-list-heading">Customer Email</span>
+        <span class="data-list-heading">Customer Address</span>
+        <span class="data-list-heading">Postcode</span>
+        <span class="data-list-heading">City</span>
+        <span class="data-list-heading">State</span>
+        <% for (const customer of tab_data.all_entries) { %>
+        <span class="edit-staff-row"><%= customer.customer_id %></span>
+        <span class="edit-staff-row"><%= customer.firstname %></span>
+        <span class="edit-staff-row"><%= customer.lastname %></span>
+        <span class="edit-staff-row"><%= customer.customer_phone %></span>
+        <span class="edit-staff-row"><%= customer.customer_email %></span>
+        <span class="edit-staff-row"><%= customer.customer_address %></span>
+        <span class="edit-staff-row"><%= customer.postcode %></span>
+        <span class="edit-staff-row"><%= customer.city %></span>
+        <span class="edit-staff-row"><%= customer.state %></span>
+        <% } %>
+    </section>
+
+    <% if (tab_data.edit_entry) { %>
+        <form action="/staff_admin" method="post" class="form-grid edit-panel">
+            <fieldset>
+                <h3>EDIT CUSTOMER</h3>
+                <a href="/staff_admin?tab=customers" class="close-panel-a">X</a>
+            </fieldset>
+
+            <fieldset class="form-body">
+
+            <% for (const customer of tab_data.all_entries) { %>
+                <% if (customer.customer_id === tab_data.edit_entry.customer_id) { %>
+
+                <input type="hidden" name="customer_id" value="<%= customer.customer_id %>">
+                 
+                <label for="firstname">firstname</label>
+                <input type="text" id="firstname" name="firstname" for="firstname" value="<%= customer.firstname %>">
+
+                <label for="lastname">lastname</label>
+                <input type="text" id="lastname" name="lastname" for="lastname" value="<%= customer.lastname %>">
+
+                <label for="customer_phone">customer_phone</label>
+                <input type="text" id="lastname" name="customer_phone" for="lastname" value="<%= customer.customer_phone %>">
+
+                <label for="customer_email">customer_email</label>
+                <input type="text" id="customer_email" name="customer_email" for="customer_email" value="<%= customer.customer_email %>">
+
+                <label for="customer_address">customer_address</label>
+                <input type="text" id="customer_address" name="customer_address" for="customer_address" value="<%= customer.customer_address %>">
+
+                <label for="postcode">postcode</label>
+                <input type="text" id="postcode" name="postcode" for="postcode" value="<%= customer.postcode %>">
+
+                <label for="city">city</label>
+                <input type="text" id="city" name="city" for="city" value="<%= customer.city %>">
+
+                <label for="state">state</label>
+                <input type="text" id="city" name="state" for="state" value="<%= customer.state %>">
+
+                <% } %>
+            <% } %>
+
+            </fieldset>
+            <fieldset class="form-footer">
+                <!--- submit buttons --->
+                <input type="submit" name="action" value="delete" />
+                <input type="submit" name="action" value="update" />
+                <input type="hidden" name="tab" value="<%= tab %>">
+            </fieldset>
+        </form>
+    <% } %>
+</section>

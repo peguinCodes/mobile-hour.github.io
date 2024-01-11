@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <%- include("partials/nav.ejs") %>
+        <main>
+            <div id="feedback-bar"></div>
+            <form style="height: calc(2rem + 20px);" id="filters-bar" action="/search_products" method="get">
+            </form>
+            <script>
+               const sort_by_elem = document.getElementById("sort-by"); 
+               sort_by_elem.onchange = function () {
+                   const win_location = window.location.href; 
+                                if (!(win_location.includes("sort_by"))) {
+                                   window.location.href += `?sort_by=${sort_by_elem.value}`; 
+                                } else {
+                                   window.location.href = `/view_products?sort_by=${sort_by_elem.value}`; 
+                                }
+               }
+            </script>
+            <form class="product-details-section" action="/order_confirmation" method="POST">
+
+                    <article class="product-card">
+                        <img 
+                            class="product-image" 
+                            src="https://images.macrumors.com/t/9r84bU_ZTOTrUixxwhjHUFsAvD4=/800x0/smart/article-new/2017/09/iphonexdesign.jpg?lossy" 
+                            alt="product image"
+                        >
+
+                        <h3>
+                            <%= `${product.product_name} | ${product.product_model} ${product.cpu} ${product.ram}GB` %>
+                        </h3>
+                        <span class="price-and-stock">
+                        <span class="product-price">$<%= product.price %></span>
+                        <span class="in-stock"><%= product.feature_id %> in stock</span>
+                        </span>
+
+                        <span>
+                            <label>Quantity</label>  
+                            <input class="watched-input" id="quantity" type="number" name="quantity_ordered">
+                        </span>
+                    </article>
+
+                    <article class="product-specs-table max-full-layout">
+                        <label>First Name</label> 
+                        <input class="watched-input" id="firstname" type="text" name="customer_firstname">
+                        <label>Last Name</label>  
+                        <input class="watched-input"  id="lastname" type="text" name="customer_lastname">
+                        <label>address</label>  
+                        <input  class="watched-input" id="address" type="text" name="customer_address">
+                        <label>postcode</label>  
+                        <input  class="watched-input" id="postcode" type="text" name="customer_postcode">
+                        <label>state</label>  
+                        <input class="watched-input"  id="state" type="text" name="customer_state">
+                        <label>city</label>  
+                        <input class="watched-input"  id="city" type="text" name="customer_city">
+                        <label>Phone</label>  
+                        <input class="watched-input"  id="phone" type="text" name="customer_phone">
+                        <label>Email</label>  
+                        <input class="watched-input"  id="email" type="text" name="customer_email">
+
+                        <input type="hidden" name="product_id" value="<%= product.product_id %>">
+                        <input type="hidden" name="price_sold" value="<%= product.price %>">
+                    </article>
+
+                    <article class="checkout-article">
+                        <input  type="submit" class="checkout-button">
+                    </article>
+
+            </form>
+        </main>
+    </body>
+    <%- include("partials/footer.ejs") %>
+    <script src="js/input_validation.js"></script>
+</html>

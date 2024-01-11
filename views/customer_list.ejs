@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <h3>sdjflsjdajdklfjf</h3>
+    <h3>sdjflsjdajdklfjf</h3>
+
+    <h2>teting testing</h2>
+
+    <form action="/create_order" method="post">
+        <input type="hidden" name="product_id" value="TODO: Fill with EJS">
+
+        <label for="customer-first-name">First Name:</label>
+        <input type="text" name="customer_first_name" id="">
+        <br>
+
+        <label for="customer-last-name">Last Name:</label>
+        <input type="text" name="customer_last_name" id="">
+        <br>
+
+        <label for="customer-phone">Phone:</label>
+        <input type="text" name="customer_email" id="">
+        <br>
+
+        <label for="customer-email">Email:</label>
+        <input type="text" name="customer_email" id="">
+        <br>
+
+        <a class="link-button" href="/">Go back</a>
+        <button type="submit" value="Pay">Create Order</button>
+    </form>
+
+    <% for (const product of products) { %>
+    <section class="list-of-products">
+        <article>
+            <h3><%= product.name  %></h3>
+            <img src="https://picsum.photos/200" alt="">
+            <p><%= product.description %></p>
+        </article>
+    </section>
+    <% } %>
+
+</body>
+</html>

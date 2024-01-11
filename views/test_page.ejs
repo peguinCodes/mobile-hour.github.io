@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <%- include("partials/nav.ejs") %>
+        <main>
+            <form style="height: calc(2rem + 20px);" id="filters-bar" action="/search_products" method="get">
+            </form>
+            <script></script>
+            <section class="product-details-section">
+
+                    <article class="product-card">
+                        <img 
+                            class="product-image" 
+                            src="https://images.macrumors.com/t/9r84bU_ZTOTrUixxwhjHUFsAvD4=/800x0/smart/article-new/2017/09/iphonexdesign.jpg?lossy" 
+                            alt="product image"
+                        >
+
+                        <h3></h3>
+                        <span class="price-and-stock">
+                        <span class="product-price"></span>
+                        <span class="in-stock"></span>
+                        </span>
+
+                    </article>
+
+                    <article class="product-specs-table">
+                        <span>weight:</span> <span></span> 
+                        <span>dimensions:</span> <span></span> 
+                        <span>OS:</span> <span></span> 
+                        <span>screensize:</span> <span></span> 
+                        <span>resolution:</span> <span></span> 
+                        <span>cpu:</span> <span></span> 
+                        <span>ram:</span> <span></span> 
+                        <span>storage:</span> <span></span> 
+                        <span>battery:</span> <span></span> 
+                        <span>front camera:</span> <span></span> 
+                    </article>
+
+                    <article class="checkout-article">
+                    </article>
+
+            </section>
+        </main>
+    </body>
+</html>

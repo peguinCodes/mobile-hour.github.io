@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <h2></h2>
+
+    <form action="/edit_user" method="post">
+
+        <label for="user-first-name">First Name:</label>
+        <input type="text" name="firstname" value="test" id="firstname" >
+        <br>
+
+        <label for="user-last-name">Last Name:</label>
+        <input type="text" name="lastname" value="test" id="lastname">
+        <br>
+
+        <label for="user-username">Username:</label>
+        <input type="text" name="username" value="test" id="username">
+        <br>
+
+        <label for="user-role">User Role:</label>
+        <input type="text" name="user_role" value="test" id="user_role">
+        <br>
+
+        <label for="user-password">Password:</label>
+        <input type="password" name="user_password" value="test" id="user_password">
+        <br>
+
+        <input type="hidden" name="user_id" value="1" id="user_id">
+        <br>
+
+        <a class="link-button" href="/">Go back</a>
+        <button type="submit" value="Pay">Create Order</button>
+    </form>
+</body>
+</html>

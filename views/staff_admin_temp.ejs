@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        <%- include("partials/head.ejs") %>
+        <%- include("partials/header.ejs") %>
+        <main class="staff-admin-main">
+            <% if (["admin", "manager", "sales"].includes(user_role)) { %>
+                <div class="logged-in-status-bar">
+                    <span>Currently logged in as: </span><span><%= user_role %></span>
+                    <a href="/staff_logout">log out</a>
+                </div>
+            <% } %>
+            <div id="feedback-bar"></div>
+            
+            <div class="tabs-container">
+                <a href="/staff_admin?tab=staff" class="tab<%= tab == 'staff' ? ' ' + 'active-tab' : ''%>">staff</a>
+                <a href="/staff_admin?tab=orders" class="tab<%= tab == 'orders' ? ' ' + 'active-tab' : ''%>">orders</a>
+                <a href="/staff_admin?tab=products" class="tab<%= tab == 'products' ? ' ' + 'active-tab' : ''%>">products</a>
+                <a href="/staff_admin?tab=customers" class="tab<%= tab == 'customers' ? ' ' + 'active-tab' : ''%>">customers</a>
+                <a href="/staff_admin?tab=changelog" class="tab<%= tab == 'changelog' ? ' ' + 'active-tab' : ''%>">changelog</a>
+            </div>
+
+            <div class="actions-bar">
+            <% if (["staff", "products"].includes(tab)) { %>
+                <a class="action-button" href="/staff_admin?tab=<%= tab %>&action=create">CREATE <%= tab.toUpperCase() %></a>
+            <% } %>
+            </div>
+            
+
+            <form id="filters-bar" action="/search_staff_admin" method="POST">
+                <span>
+                    <select id="sort-by-select" name="sort_by" value="sort by: ">
+                        <% for (sort_by of sort_keys) { %>
+                        <option 
+                           value="<%= sort_by %>"
+                           <%= sort_by === sort_key ? 'selected' : '' %>
+                           >
+                           sort by <%= sort_by %>
+                        </option>
+                        <% } %>
+                    </select>
+                </span>
+                <span>
+                    <label for="start-date-created">Start Date Created :</label>
+                    <input id="start-date-created" type="date" name="start_date_created" value="<%= start_date_created %>">
+                    <label for="end-date-created">End Date Created :</label>
+                    <input id="end-date-created" type="date" name="end_date_created" value="<%= end_date_created %>">
+                </span>
+                </span>
+                <span>
+                    <select id="search-by-select" name="search_by" value="search by: ">
+                        <% for (search_by of search_keys) { %>
+                        <option 
+                           value="<%= search_by %>"
+                           <%= search_by === search_key ? 'selected' : '' %>
+                           >
+                           search by <%= search_by %>
+                        </option>
+                        <% } %>
+                    </select>
+                    <input id="filter-search" type="text" name="search_term">
+
+                    <!--- submit-buttons --->
+                    <input type="submit" value="search">
+                </span>
+
+                <!--- hidden-inputs --->
+                <input type="hidden" name="tab" value="<%= tab %>">
+                <input id="submit-filters" style="display: none;" type="submit">
+            </form>
+
+            <% if (tab == "staff") { %>
+                <%- include("partials/staff_tab.ejs") %>
+            <% } else if (tab == "orders") { %>
+                <%- include("partials/orders_tab.ejs") %>
+            <% } else if (tab == "products") { %>
+                <%- include("partials/products_tab.ejs") %>
+            <% } else if (tab == "customers") { %>
+                <%- include("partials/customers_tab.ejs") %>
+            <% } else if (tab == "changelog") { %>
+                <%- include("partials/changelog_tab.ejs") %>
+        <% } %>
+    </main>
+
+    <script defer>
+        // on event "change" for <select> input, 
+        // clicks submit button on filters form
+        const sort_by_elem = document.getElementById("sort-by-select"); 
+        const submit_filters_button = document.getElementById("submit-filters"); 
+        console.log("sort_by_elem: ", sort_by_elem); 
+        console.log("submit_filters_button: ", submit_filters_button); 
+        sort_by_elem.onchange = function () {
+            submit_filters_button.click(); 
+        }; 
+    </script>
+</body>
+<%- include("partials/footer.ejs") %>
+</html>

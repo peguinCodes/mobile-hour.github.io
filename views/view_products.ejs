@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head.ejs") %>
+    <%- include("partials/header.ejs") %>
+    <body>
+        <%- include("partials/nav.ejs") %>
+        <main>
+            <form id="filters-bar" class="product-list-page" action="/search_products" method="get">
+                <fieldset>
+                    <input type="submit" name="search_term" value="Samsung">
+                    <input type="submit" name="search_term" value="Apple">
+                    <input type="submit" name="search_term" value="Xiaomi">
+                </fieldset>
+                <fieldset>
+                    <select 
+                        id="sort-by-select" name="sort_by" value="sort by: ">
+                        <% for (sort_by of ["price", "manufacturer"]) { %>
+                            <option 
+                                value="<%= sort_by %>"
+                                <%= sort_by === sort_key ? 'selected' : '' %>
+                            >
+                                sort by <%= sort_by %>
+                            </option>
+                        <% } %>
+                    </select>
+                </fieldset>
+            </form>
+            <script>
+               const sort_by_select = document.getElementById("sort-by-select"); 
+               const hidden_sort_by = document.getElementById("sort-by"); 
+               const submit_search_button = document.getElementById("submit-search-query"); 
+
+               sort_by_select.onchange = function () {
+                   hidden_sort_by.value = sort_by_select.value; 
+                   submit_search_button.click(); 
+               }
+            </script>
+            <section class="product-results-section">
+
+                <% for (const product of product_results) { %>
+                    <article class="product-card">
+                        <img 
+                            class="product-image" 
+                            src="https://images.macrumors.com/t/9r84bU_ZTOTrUixxwhjHUFsAvD4=/800x0/smart/article-new/2017/09/iphonexdesign.jpg?lossy" 
+                            alt="product image"
+                        >
+
+                        <h3>
+                            <%= `${product.product_name} | ${product.product_model} ${product.cpu} ${product.ram}GB` %>
+                        </h3>
+                        <span class="price-and-stock">
+                            <span class="product-price">$<%= product.price %></span>
+                            <span class="in-stock"><%= product.feature_id %> in stock</span>
+                        </span>
+
+                        <div class="article-footer-section">
+                            <a class="view-details-button" href="/product_details?product_id=<%= product.product_id %>">View Details</a>
+                        </div>
+                    </article>
+                <% } %>
+
+            </section>
+        </main>
+        <%- include("partials/footer.ejs") %>
+    </body>
+</html>

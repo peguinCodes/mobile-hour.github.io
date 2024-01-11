@@ -1,0 +1,128 @@
+<section class="full-max-layout">
+        <% if (["manager", "admin"].includes(user_role)) { %>
+        <section class="data-table cols-6 data-list">
+        <% } else { %>
+        <section class="data-table cols-5 data-list">
+        <% } %>
+        <span class="data-list-heading">ID</span>
+        <span class="data-list-heading">Name</span>
+        <span class="data-list-heading">Username</span>
+        <span class="data-list-heading">Role</span>
+        <span class="data-list-heading">DateTime Created</span>
+        <% if (["manager", "admin"].includes(user_role)) { %>
+        <span></span>
+        <% } %>
+        <% if (tab_data.edit_entry) { %>
+            <% for (const staff of tab_data.all_entries) { %>
+                <% if (staff.user_id === tab_data.edit_entry.user_id) { %>
+                    <span <%= staff.user_id === tab_data.edit_entry.user_id ? 'class="edit-staff-row"' : '' %>> <%= staff.user_id %> </span>
+                    <span <%= staff.user_id === tab_data.edit_entry.user_id ? 'class="edit-staff-row"' : '' %>> <%= `${staff.firstname} ${staff.lastname}` %> </span>
+                    <span <%= staff.user_id === tab_data.edit_entry.user_id ? 'class="edit-staff-row"' : '' %>> <%= staff.username %> </span>
+                    <span <%= staff.user_id === tab_data.edit_entry.user_id ? 'class="edit-staff-row"' : '' %>> <%= staff.user_role %> </span>
+                    <span <%= staff.user_id === tab_data.edit_entry.user_id ? 'class="edit-staff-row"' : '' %>> <%= staff.date_created %> </span>
+                    <a href="/staff_admin?edit_id=<%= staff.user_id %>" class="link-button"> Edit </a>
+                <% } else { %>
+                    <span> <%= staff.user_id %> </span>
+                    <span> <%= `${staff.firstname} ${staff.lastname}` %> </span>
+                    <span> <%= staff.username %> </span>
+                    <span> <%= staff.user_role %> </span>
+                    <span> <%= staff.date_created %> </span>
+                    <a class="edit-button" href="/staff_admin?edit_id=<%= staff.user_id %>" class="link-button"> Edit </a>
+                <% } %>
+            <% } %>
+        <% } else { %>
+            <% for (const staff of tab_data.all_entries) { %>
+                <span> <%= staff.user_id %> </span>
+                <span> <%= `${staff.firstname} ${staff.lastname}` %> </span>
+                <span> <%= staff.username %> </span>
+                <span> <%= staff.user_role %> </span>
+                <span> <%= staff.date_created %> </span>
+                <% if (["manager", "admin"].includes(user_role)) { %>
+                <a class="edit-button" href="/staff_admin?edit_id=<%= staff.user_id %>" class="link-button"> Edit </a>
+                <% } %>
+            <% } %>
+        <% } %>
+
+    </section>
+
+    <% if (action == "create") { %>
+        <form action="/create_staff" method="post" class="form-grid edit-panel">
+            <fieldset>
+                <h3>CREATE USER</h3>
+                <a href="/staff_admin?tab=staff" class="close-panel-a">X</a>
+            </fieldset>
+
+            <fieldset class="form-body">
+                <!--- staff_id --->
+                <input name="staff_id" type="hidden"/>
+                <!--- firstname --->
+                <label for="firstname">First Name</label>
+                <input class="watched-input" name="firstname" type="text" id="firstname"/>
+                <!--- lastname --->
+                <label for="last-name">Last Name</label>
+                <input class="watched-input" name="lastname" type="text" id="lastname"/>
+                <!--- user_role --->
+                <label for="user-role">User Role</label>
+                <select name="user_role" id="user-role">
+                    <option value="admin"> Admin </option>
+                    <option value="stock"> Stock </option>
+                    <option value="sales"> Sales </option>
+                </select>
+                <!--- username --->
+                <label for="username2">Username</label>
+                <input class="watched-input" type="text" name="username" id="username" value="somethuinb"/>
+                <!--- password --->
+                <label for="password">Password</label>
+                <input class="watched-input" type="password" name="user_password" id="password"/>
+
+            </fieldset>
+            <fieldset class="form-footer">
+                <!--- submit buttons --->
+                <input type="submit" name="action" value="create" />
+                <input type="hidden" name="tab" value="<%= tab %>">
+            </fieldset>
+        </form>       
+        <script defer src="js/input_validation.js"></script>
+    <% } %>
+
+    <% if (tab_data.edit_entry) { %>
+        <form action="/staff_admin?tab=staff" method="post" class="form-grid edit-panel">
+            <fieldset>
+                <h3>EDIT USER</h3>
+                <a href="/staff_admin?tab=staff" class="close-panel-a">X</a>
+            </fieldset>
+
+            <fieldset class="form-body">
+                <!--- staff_id --->
+                <input name="staff_id" type="hidden" value="<%= tab_data.edit_entry.user_id %>" />
+                <!--- firstname --->
+                <label for="firstname">First Name</label>
+                <input name="firstname" type="text" id="firstname" value="<%= tab_data.edit_entry.firstname %>" />
+                <!--- lastname --->
+                <label for="lastname">Last Name</label>
+                <input name="lastname" type="text" id="lastname" value="<%= tab_data.edit_entry.lastname %>" />
+                <!--- user_role --->
+                <label for="user-role">User Role</label>
+                <select name="user_role" id="user-role">
+                    <option <%= tab_data.edit_entry.user_role=="admin" ? "selected" : "" %> value="admin"> Admin </option>
+                    <option <%= tab_data.edit_entry.user_role=="stock" ? "selected" : "" %> value="stock"> Stock </option>
+                    <option <%= tab_data.edit_entry.user_role=="sales" ? "selected" : "" %> value="sales"> Sales </option>
+                </select>
+                <!--- username --->
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="<%= tab_data.edit_entry.username %>" />
+                <!--- password --->
+                <label for="password">Password</label>
+                <input type="password" name="user_password" id="password" value="<%= tab_data.edit_entry.user_password %>" />
+
+            </fieldset>
+            <fieldset class="form-footer">
+                <!--- submit buttons --->
+                <input type="submit" name="action" value="delete" />
+                <input type="submit" name="action" value="update" />
+                <input type="hidden" name="tab" value="<%= tab %>">
+            </fieldset>
+        </form>
+    <% } %>
+    
+</section>

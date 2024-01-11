@@ -1,0 +1,207 @@
+<section class="full-max-layout">
+        <% if (["manager", "admin"].includes(user_role)) { %>
+        <section class="data-table cols-8 data-list">
+        <% } else { %>
+        <section class="data-table cols-7 data-list">
+        <% } %>
+        <span class="data-list-heading">ID</span>
+        <span class="data-list-heading">Product Name</span>
+        <span class="data-list-heading">Product Model</span>
+        <span class="data-list-heading">Product Manufacturer</span>
+        <span class="data-list-heading">Product Price</span>
+        <span class="data-list-heading">Product Stock</span>
+        <span class="data-list-heading">Product Feature_id</span>
+        <% if (["manager", "admin"].includes(user_role)) { %>
+        <span class="data-list-heading"></span>
+        <% } %>
+        <% for (const product of tab_data.all_entries) { %>
+        <% if (product.product_id === tab_data.edit_id) { %>
+            <span class="edit-staff-row"> <%= `${product.product_id}` %> </span>
+            <span class="edit-staff-row"> <%= `${product.product_name}` %> </span>
+            <span class="edit-staff-row"> <%= `${product.product_model}` %> </span>
+            <span class="edit-staff-row"> <%= `${product.manufacturer}` %> </span>
+            <span class="edit-staff-row"> <%= `${product.price}` %> </span>
+            <span class="edit-staff-row"> <%= `${product.stock_on_hand}` %> </span>
+            <span class="edit-staff-row"> <%= `${product.feature_id}` %> </span>
+        <% } else { %>
+            <span> <%= `${product.product_id}` %> </span>
+            <span> <%= `${product.product_name}` %> </span>
+            <span> <%= `${product.product_model}` %> </span>
+            <span> <%= `${product.manufacturer}` %> </span>
+            <span> <%= `${product.price}` %> </span>
+            <span> <%= `${product.stock_on_hand}` %> </span>
+            <span> <%= `${product.feature_id}` %> </span>
+        <% } %>
+            <% if (["manager", "admin"].includes(user_role)) { %>
+            <a class="edit-button" href="/staff_admin?tab=products&edit_id=<%= product.product_id %>" class="link-button"> Edit </a>
+            <% } %>
+        <% } %>
+    </section>
+
+    <% if (action == "create") { %>
+        <form action="/create_product" method="post" class="form-grid edit-panel">
+            <fieldset>
+                <h3>CREATE PRODUCT</h3>
+                <a href="/staff_admin?tab=<%= tab %>" class="close-panel-a">X</a>
+            </fieldset>
+
+            <fieldset class="form-body">
+                <!--- product_name --->
+                <label for="product-name">Product Name</label>
+                <input name="product_name" type="text" id="product-name"/>
+                <!--- product_model --->
+                <label for="product-model">Product Model</label>
+                <input name="product_model" type="text" id="product-model"/>
+                <!--- product_manufacturer --->
+                <label for="product-manufacturer">Product Manufacturer</label>
+                <input id="product-manufacturer" type="text" name="manufacturer">
+                <!--- product_price --->
+                <label for="product-price">Product price</label>
+                <input name="product_price" type="text" id="product-price"/>
+
+                <!--- product_stock --->
+                <label for="product-stock">Product stock</label>
+                <input name="product_stock" type="text" id="product-stock"/>
+
+                <!--- product_weight --->
+                <label for="product-weight">Product weight</label>
+                <input name="product_weight" type="text" id="product-weight"/>
+
+                <!--- product_dimensions --->
+                <label for="product-dimensions">Product dimensions</label>
+                <input name="product_dimensions" type="text" id="product-dimensions"/>
+
+                <!--- product_os --->
+                <label for="product-os">Product os</label>
+                <input name="product_os" type="text" id="product-os"/>
+
+                <!--- product_screensize --->
+                <label for="product-screensize">Product screensize</label>
+                <input name="product_screensize" type="text" id="product-screensize"/>
+
+                <!--- product_resolution --->
+                <label for="product-resolution">Product resolution</label>
+                <input name="product_resolution" type="text" id="product-resolution"/>
+
+                <!--- product_cpu --->
+                <label for="product-cpu">Product cpu</label>
+                <input name="product_cpu" type="text" id="product-cpu"/>
+
+                <!--- product_ram --->
+                <label for="product-ram">Product ram</label>
+                <input name="product_ram" type="text" id="product-ram"/>
+
+                <!--- product_storage --->
+                <label for="product-storage">Product storage</label>
+                <input name="product_storage" type="text" id="product-storage"/>
+
+                <!--- product_battery --->
+                <label for="product-battery">Product battery</label>
+                <input name="product_battery" type="text" id="product-battery"/>
+
+                <!--- product_front_camera --->
+                <label for="product-front_camera">Product front_camera</label>
+                <input name="product_front_camera" type="text" id="product-front_camera"/>
+
+            </fieldset>
+            <fieldset class="form-footer">
+                <!--- submit buttons --->
+                <input type="submit" name="action" value="create" />
+                <input type="hidden" name="tab" value="<%= tab %>">
+            </fieldset>
+        </form>       
+        <script defer src="/js/load_default_values.js"></script>
+
+
+    <% } else if (tab_data.edit_entry) { %>
+
+
+        <form action="/staff_admin?tab=products" method="post" class="form-grid edit-panel">
+            <fieldset>
+                <h3>EDIT PRODUCT</h3>
+                <a href="/staff_admin?tab=products" class="close-panel-a">X</a>
+            </fieldset>
+
+            <fieldset class="form-body">
+                <!--- product_name --->
+                <label for="product-name">Product Name</label>
+                <input name="product_name" type="text" id="product-name" value="<%= tab_data.edit_entry.product_name %>"/>
+                <!--- product_model --->
+                <label for="product-model">Product Model</label>
+                <input name="product_model" type="text" id="product-model" value="<%= tab_data.edit_entry.product_model %>"/>
+                <!--- product_manufacturer --->
+                <label for="product-manufacturer">Product Manufacturer</label>
+                <select name="manufacturer" id="product-manufacturer" value="<%= tab_data.edit_entry.product_manufacturer %>">
+                    <% for (const manufacturer of ["samsung", "apple", "google"]) { %>
+                        <option 
+                            <%= tab_data.edit_entry.product_manufacturer == manufacturer ? 'selected' : '' %> 
+                            value="<%= manufacturer %>"
+                        >
+                            <%= manufacturer %>
+                        </option>
+                    <% } %>
+                </select>
+                <!--- product_id --->
+                <label for="product-id">Product id</label>
+                <input name="product_id" type="text" id="product-id" value="<%= tab_data.edit_entry.product_id %>"/>
+                <!--- feature_id --->
+                <label for="feature-id">feature id</label>
+                <input name="feature_id" type="text" id="feature-id" value="<%= tab_data.edit_entry.feature_id %>"/>
+                <!--- product_price --->
+                <label for="product-price">Product price</label>
+                <input name="product_price" type="text" id="product-price" value="<%= tab_data.edit_entry.price %>"/>
+
+                <!--- product_stock --->
+                <label for="product-stock">Product stock</label>
+                <input name="product_stock_on_hand" type="text" id="product-stock" value="<%= tab_data.edit_entry.stock_on_hand %>"/>
+
+                <!--- _weight --->
+                <label for="weight"> weight</label>
+                <input name="weight" type="text" id="weight" value="<%= tab_data.edit_entry.weight %>"/>
+
+                <!--- _dimensions --->
+                <label for="dimensions"> dimensions</label>
+                <input name="dimensions" type="text" id="dimensions" value="<%= tab_data.edit_entry.dimensions %>"/>
+
+                <!--- _os --->
+                <label for="os"> os</label>
+                <input name="os" type="text" id="os" value="<%= tab_data.edit_entry.OS %>"/>
+
+                <!--- _screensize --->
+                <label for="screensize"> screensize</label>
+                <input name="screensize" type="text" id="screensize" value="<%= tab_data.edit_entry.screensize %>"/>
+
+                <!--- _resolution --->
+                <label for="resolution"> resolution</label>
+                <input name="resolution" type="text" id="resolution" value="<%= tab_data.edit_entry.resolution %>"/>
+
+                <!--- _cpu --->
+                <label for="cpu"> cpu</label>
+                <input name="cpu" type="text" id="cpu" value="<%= tab_data.edit_entry.cpu %>"/>
+
+                <!--- _ram --->
+                <label for="ram"> ram</label>
+                <input name="ram" type="text" id="ram" value="<%= tab_data.edit_entry.ram %>"/>
+
+                <!--- _storage --->
+                <label for="storage"> storage</label>
+                <input name="storage" type="text" id="storage" value="<%= tab_data.edit_entry.storage %>"/>
+
+                <!--- _battery --->
+                <label for="battery"> battery</label>
+                <input name="battery" type="text" id="battery" value="<%= tab_data.edit_entry.battery %>"/>
+
+                <!--- _front_camera --->
+                <label for="front_camera"> front_camera</label>
+                <input name="front_camera" type="text" id="front_camera" value="<%= tab_data.edit_entry.front_camera %>"/>
+
+            </fieldset>
+            <fieldset class="form-footer">
+                <!--- submit buttons --->
+                <input type="submit" name="action" value="delete" />
+                <input type="submit" name="action" value="update" />
+                <input type="hidden" name="tab" value="<%= tab %>">
+            </fieldset>
+        </form>
+    <% } %>
+</section>
